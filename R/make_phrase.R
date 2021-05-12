@@ -22,7 +22,7 @@ make_phrase <- function(num, num_word, item, verb, adjective, location){
 
   verb <- str_replace_na(verb, "")
 
-  #????
+  paste(toString(num_word), item, word, adjective, location, sep = " ")
 
 
 }

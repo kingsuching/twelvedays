@@ -12,9 +12,19 @@
 #' @export
 pluralize_gift <- function(gift){
 
-gift <- gift %>%
-  str_replace()
+  if(gift == "goose") {
+    return("geese")
+  }
 
-return(gift)
+  if(str_detect(substr(gift, str_length(gift)-1, str_length(gift)), "y")) {
+    gift <- gift %>%
+      str_replace("$", "ies")
+  }else{
+    gift <- gift %>%
+      str_replace("$", "s")
+  }
+
+
+  return(gift)
 
 }
