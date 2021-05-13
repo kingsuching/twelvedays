@@ -28,11 +28,11 @@ if(num == 1) {
   item <- map_chr(item, pluralize_gift)
 }
 if(num <= 5) {
-  paste(num_word, verb, adjective, item, location) %>%
+  return(paste(num_word, verb, adjective, item, location) %>%
     str_trim() %>%
     str_remove("NA") %>%
     str_remove(" NA") %>%
-    str_trim()
+    str_trim())
 }
   return(paste(num_word, item, verb, adjective, location) %>%
     str_trim() %>%
