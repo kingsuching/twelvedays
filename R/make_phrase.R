@@ -22,17 +22,24 @@ make_phrase <- function(num, num_word, item, verb, adjective, location){
 
   verb <- str_replace_na(verb, "")
 
-if(num_word == "first") {
+if(num == 1) {
   num_word = "and a"
 }else{
   item <- map_chr(item, pluralize_gift)
 }
-
-
-
-  paste(num_word, item, verb, adjective, location) %>%
+if(num <= 5) {
+  paste(num_word, verb, adjective, item, location) %>%
+    str_trim() %>%
+    str_remove("NA") %>%
+    str_remove(" NA") %>%
     str_trim()
+}
+  return(paste(num_word, item, verb, adjective, location) %>%
+    str_trim() %>%
+    str_remove("NA") %>%
+    str_remove(" NA") %>%
+    str_trim())
 
 
 }
-pmap_chr(list(xmas$Day, xmas$Day.in.Words, xmas$Gift.Item, xmas$Verb, xmas$Adjective, xmas$Location), make_phrase)
+pmap(list(xmas$Day, xmas$Day.in.Words, xmas$Gift.Item, xmas$Verb, xmas$Adjective, xmas$Location), make_phrase)
