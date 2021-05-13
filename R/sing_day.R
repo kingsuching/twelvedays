@@ -15,9 +15,11 @@
 #' @export
 sing_day <- function(dataset, line, phrase_col){
 
-  phrases <- dataset %>% pull({{phrase_col}})
+  #phrases <- dataset %>% pull({{phrase_col}})
 
-  #????
+  paste("On the", line, "day of Christmas my true love sent to me", phrase_col)
 
 
 }
+
+sing_day(xmas, 5, xmas$Phrase)

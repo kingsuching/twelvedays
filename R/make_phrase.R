@@ -13,6 +13,7 @@
 #' @import glue
 #' @import dplyr
 #' @import purrr
+#' @import English
 #'
 #' @export
 
@@ -42,4 +43,5 @@ if(num <= 5) {
 
 
 }
+xmas$Number <- english::english(xmas$Day)
 pmap(list(xmas$Day, xmas$Day.in.Words, xmas$Gift.Item, xmas$Verb, xmas$Adjective, xmas$Location), make_phrase)
