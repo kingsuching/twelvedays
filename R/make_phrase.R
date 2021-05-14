@@ -23,25 +23,18 @@ make_phrase <- function(num, num_word, item, verb, adjective, location){
 
   verb <- str_replace_na(verb, "")
 
-if(num == 1) {
-  num_word = "and a"
-}else{
-  item <- map_chr(item, pluralize_gift)
-}
-if(num <= 5) {
-  return(paste(num_word, verb, adjective, item, location) %>%
-    str_trim() %>%
+
+  if(num > 1) {
+    item <- map_chr(item, pluralize_gift)
+    if(num <= 5) {
+      return(paste(num_word, adjective, item))
+    }
+  }
+  phrase <- paste(num_word, map_chr(item, pluralize_gift), verb, adjective, location, sep = " ") %>%
     str_remove("NA") %>%
     str_remove(" NA") %>%
-    str_trim())
+    str_trim()
+  return(phrase)
 }
-  return(paste(num_word, item, verb, adjective, location) %>%
-    str_trim() %>%
-    str_remove("NA") %>%
-    str_remove(" NA") %>%
-    str_trim())
-
-
-}
-xmas$Number <- english::english(xmas$Day)
-pmap(list(xmas$Day, xmas$Day.in.Words, xmas$Gift.Item, xmas$Verb, xmas$Adjective, xmas$Location), make_phrase)
+xmas$English <- english(xmas$Day)
+make_phrase(xmas$Day, xmas$English, xmas$Gift.Item, xmas$Verb, xmas$Adjective, xmas$Location)

@@ -23,4 +23,4 @@ pluralize_gift <- function(gift){
 
 }
 
-pluralize_gift(xmas$Gift.Item)
+sapply(xmas$Gift.Item, pluralize_gift)
