@@ -15,11 +15,18 @@
 #' @export
 sing_day <- function(dataset, line, phrase_col){
 
-  #phrases <- dataset %>% pull({{phrase_col}})
+  phrases <- dataset %>% pull({{phrase_col}})
+  map(dataset, paste("On the", line, ~make_phrase(..1, ..2, ..3, ..4, ..5, ..6)))
+  dataset$English <- as.character(english(dataset$Day))
 
-  paste("On the", line, "day of Christmas my true love sent to me", phrase_col)
-
+  dataset <- dataset %>%
+    mutate(
+      Full.Phrase = pmap_chr(dataset, ~make_phrase(..1, ..7, ..3, ..4, ..5, ..6))
+    )
+  final <- paste("On the", dataset$Day.In.Words, "day of Christmas my true love gave to me,", dataset$Full.Phrase)
+  return(final)
 
 }
+xmas$Phrase <- make_phrase(xmas$Day, xmas$English, xmas$Gift.Item, xmas$Verb, xmas$Adjective, xmas$Location)
 
-sing_day(xmas, 5, xmas$Phrase)
+sing_day(xmas, 2, xmas$Full.Phrase)
