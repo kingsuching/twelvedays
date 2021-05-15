@@ -26,8 +26,6 @@ sing_day <- function(dataset, line){
     )
   final <- paste(dataset$Full.Phrase) %>%
     str_replace("[ ]+", " ")
-  if(line == 1) {
-    final <- str_remove(final, "and")
-  }
+  final <- str_trim(final)
   cat(rev(final), sep = "\n")
 }
