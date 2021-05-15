@@ -11,22 +11,23 @@
 #' @import dplyr
 #' @import glue
 #' @import purrr
+#' @import english
 #'
 #' @export
-sing_day <- function(dataset, line, phrase_col){
-
-  phrases <- dataset %>% pull({{phrase_col}})
-  map(dataset, paste("On the", line, ~make_phrase(..1, ..2, ..3, ..4, ..5, ..6)))
+sing_day <- function(dataset, line){
+  #phrases <- dataset %>% pull({{phrase_col}})
   dataset$English <- as.character(english(dataset$Day))
-
+  dataset <- filter(dataset, Day <= line)
+  constant_date <- filter(dataset, Day == line)$Day.in.Words
+  cat(paste("On the", constant_date, "day of Christmas my true love gave to me,", "\n"))
   dataset <- dataset %>%
     mutate(
-      Full.Phrase = pmap_chr(dataset, ~make_phrase(..1, ..7, ..3, ..4, ..5, ..6))
+         Full.Phrase = pmap_chr(dataset, ~make_phrase(..1, ..7, ..3, ..4, ..5, ..6))
     )
-  final <- paste("On the", dataset$Day.In.Words, "day of Christmas my true love gave to me,", dataset$Full.Phrase)
-  return(final)
-
+  final <- paste(dataset$Full.Phrase) %>%
+    str_replace("[ ]+", " ")
+  if(line == 1) {
+    final <- str_remove(final, "and")
+  }
+  cat(rev(final), sep = "\n")
 }
-xmas$Phrase <- make_phrase(xmas$Day, xmas$English, xmas$Gift.Item, xmas$Verb, xmas$Adjective, xmas$Location)
-
-sing_day(xmas, 2, xmas$Full.Phrase)

@@ -13,7 +13,7 @@
 #' @import glue
 #' @import dplyr
 #' @import purrr
-#' @import English
+#' @import english
 #'
 #' @export
 
@@ -46,4 +46,4 @@ xmas <- xmas %>%
     Full.Phrase = pmap_chr(xmas, ~make_phrase(..1, ..7, ..3, ..4, ..5, ..6))
   )
 xmas2$English <- as.character(english(xmas2$Day))
-pmap_chr(xmas2, ~make_phrase(..1, ..7, ..3, ..4, ..5, ..6))
+pmap_chr(xmas, ~make_phrase(..1, ..7, ..3, ..4, ..5, ..6))
