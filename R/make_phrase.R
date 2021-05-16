@@ -20,7 +20,6 @@
 
 
 make_phrase <- function(num, num_word, item, verb, adjective, location){
-
   verb <- str_replace_na(verb, "")
   num_word_temp <- num_word
   if(num > 1) {
@@ -37,13 +36,9 @@ make_phrase <- function(num, num_word, item, verb, adjective, location){
     str_remove("NA") %>%
     str_remove(" NA") %>%
     str_trim()
+  if(num == 1) {
+    phrase <- paste(phrase, ".") %>%
+      str_trim()
+  }
   return(phrase)
 }
-xmas$English <- as.character(english(xmas$Day))
-
-xmas <- xmas %>%
-  mutate(
-    Full.Phrase = pmap_chr(xmas, ~make_phrase(..1, ..7, ..3, ..4, ..5, ..6))
-  )
-xmas2$English <- as.character(english(xmas2$Day))
-pmap_chr(xmas, ~make_phrase(..1, ..7, ..3, ..4, ..5, ..6))
