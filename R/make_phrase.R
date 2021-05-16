@@ -39,6 +39,9 @@ make_phrase <- function(num, num_word, item, verb, adjective, location){
   if(num == 1) {
     phrase <- paste(phrase, ".") %>%
       str_trim()
+  }else{
+    phrase <- paste(phrase, ",") %>%
+      str_trim()
   }
   return(phrase)
 }

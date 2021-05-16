@@ -14,7 +14,7 @@
 #' @import english
 #'
 #' @export
-sing_day <- function(dataset, line){
+sing_day <- function(dataset, line, phrase_col){
   phrases <- dataset %>% pull({{phrase_col}})
   dataset$English <- as.character(english(dataset$Day))
   dataset <- filter(dataset, Day <= line)
