@@ -12,6 +12,7 @@
 #' @import glue
 #' @import purrr
 #' @import english
+#' @import tidyverse
 #'
 #' @export
 sing_day <- function(dataset, line, phrase_col){
@@ -22,7 +23,7 @@ sing_day <- function(dataset, line, phrase_col){
   cat(paste("On the", constant_date, "day of Christmas my true love gave to me,", "\n"))
   dataset <- dataset %>%
     mutate(
-         Full.Phrase = pmap_chr(dataset, ~make_phrase(..1, ..7, ..3, ..4, ..5, ..6))
+      Full.Phrase = pmap_chr(dataset, ~make_phrase(..1, ..7, ..3, ..4, ..5, ..6))
     )
   final <- paste(dataset$Full.Phrase) %>%
     str_replace("[ ]+", " ")

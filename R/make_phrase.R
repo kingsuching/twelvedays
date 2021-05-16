@@ -26,7 +26,7 @@ make_phrase <- function(num, num_word, item, verb, adjective, location){
     num_word_temp <- num_word
     item_temp <- map_chr(item, pluralize_gift)
     if(num <= 5) {
-      return(paste(num_word_temp, adjective, item_temp))
+      return(paste(num_word_temp, adjective, item_temp), ",")
     }
   }else{
     num_word_temp <- "and a"
